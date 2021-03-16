@@ -5,6 +5,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -16,9 +18,8 @@ import java.io.IOException;
  */
 @WebServlet(name = "helloServlet", urlPatterns = "/hello")
 public class HelloServlet extends HttpServlet {
-
     @Override
-    public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO: 2. 서블릿 요청 응답 생성 2021/03/16 8:46 오전
         System.out.println("HelloServlet.service");
 
@@ -32,4 +33,5 @@ public class HelloServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         response.getWriter().write("hello" + username);
     }
+
 }

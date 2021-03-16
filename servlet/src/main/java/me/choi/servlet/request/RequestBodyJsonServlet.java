@@ -1,5 +1,7 @@
 package me.choi.servlet.request;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import me.choi.servlet.HelloData;
 import org.springframework.util.StreamUtils;
 
 import javax.servlet.ServletException;
@@ -16,18 +18,24 @@ import java.nio.charset.StandardCharsets;
  *
  * @author : jwdeveloper
  * @comment :
- * Time : 2:37 오후
+ * {"username" : "hello", "age" : 20}
+ * Time : 2:46 오후
  */
-@WebServlet(name = "RequestBodyStringServlet", urlPatterns = "/request-body-string")
-public class RequestBodyStringServlet extends HttpServlet {
+@WebServlet(name = "RequestBodyJsonServlet", urlPatterns = "/request-body-json")
+public class RequestBodyJsonServlet extends HttpServlet {
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: HTTP 요청 데이터 - API 메세지 바디 - 단순 텍스트 2021/03/16 2:44 오후
         ServletInputStream inputStream = request.getInputStream();
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
 
         System.out.println("messageBody = " + messageBody);
+
+        HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
+
+        System.out.println(helloData.toString());
 
         response.getWriter().write("ok");
     }

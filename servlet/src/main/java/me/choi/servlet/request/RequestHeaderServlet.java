@@ -1,4 +1,4 @@
-package me.choi.servlet;
+package me.choi.servlet.request;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ import java.util.Enumeration;
 public class RequestHeaderServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: HttpServletRequest 기본사용법 2021/03/16 1:08 오후
+        // TODO: HttpServletRequest 기본사용법 2021/03/16 1:09 오후
         printStartLine(request);
         printHeader(request);
         printHeaderUtils(request);

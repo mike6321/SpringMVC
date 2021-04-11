@@ -1,4 +1,4 @@
-package me.choi.servlet.domain.web.servlet;
+package me.choi.servlet.web.servlet;
 
 import me.choi.servlet.domain.member.Member;
 import me.choi.servlet.domain.member.MemberRepository;

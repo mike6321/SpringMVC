@@ -50,7 +50,8 @@ public class FrontControllerServletV2 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-
+        
+        // TODO: MyView로 랜더링 하는 과정 추가 (Controller의 부담을 덜어 주었다.) 2021/04/15 8:26 오후
         MyView view = controller.process(request, response);
         view.render(request, response);
     }

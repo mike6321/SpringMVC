@@ -30,9 +30,8 @@ import java.util.Map;
 @WebServlet(name = "frontControllerServletV2", urlPatterns = "/front-controller/v2/*")
 public class FrontControllerServletV2 extends HttpServlet {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private Map<String, ControllerV2> controllerMap = new HashMap<>();
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Map<String, ControllerV2> controllerMap = new HashMap<>();
 
     public FrontControllerServletV2() {
         this.controllerMap.put("/front-controller/v2/members/new-form", new MemberFormControllerV2());
@@ -41,10 +40,10 @@ public class FrontControllerServletV2 extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
-        String requestURI = request.getRequestURI();
-        ControllerV2 controller = controllerMap.get(requestURI);
+        final String requestURI = request.getRequestURI();
+        final ControllerV2 controller = controllerMap.get(requestURI);
 
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -52,7 +51,7 @@ public class FrontControllerServletV2 extends HttpServlet {
         }
         
         // TODO: MyView로 랜더링 하는 과정 추가 (Controller의 부담을 덜어 주었다.) 2021/04/15 8:26 오후
-        MyView view = controller.process(request, response);
+        final MyView view = controller.process(request, response);
         view.render(request, response);
     }
 }

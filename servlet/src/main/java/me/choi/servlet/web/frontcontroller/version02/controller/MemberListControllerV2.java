@@ -21,12 +21,12 @@ import java.util.List;
  */
 public class MemberListControllerV2 implements ControllerV2 {
 
-    private MemberRepository memberRepository = MemberRepository.getInstance();
+    private final MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
-        List<Member> members = memberRepository.finalAll();
+        final List<Member> members = memberRepository.finalAll();
         request.setAttribute("members", members);
 
         return new MyView("/WEB-INF/views/members.jsp");

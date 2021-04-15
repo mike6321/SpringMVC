@@ -16,5 +16,5 @@ import java.io.IOException;
  */
 public interface ControllerV2 {
 
-    MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    MyView process(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException;
 }

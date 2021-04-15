@@ -14,6 +14,6 @@ import java.io.IOException;
  */
 public interface ControllerV1 {
 
-    void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    void process(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException;
 
 }

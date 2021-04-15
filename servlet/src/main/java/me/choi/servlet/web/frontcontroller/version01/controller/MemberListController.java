@@ -20,16 +20,16 @@ import java.util.List;
  */
 public class MemberListController implements ControllerV1 {
 
-    MemberRepository memberRepository = MemberRepository.getInstance();
+    private final MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void process(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
-        List<Member> members = memberRepository.finalAll();
+        final List<Member> members = memberRepository.finalAll();
         request.setAttribute("members", members);
 
-        String viewPath = "/WEB-INF/views/members.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+        final String viewPath = "/WEB-INF/views/members.jsp";
+        final RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
     }
 }

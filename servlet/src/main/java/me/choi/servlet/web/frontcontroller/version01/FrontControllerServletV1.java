@@ -27,9 +27,8 @@ import java.util.Map;
 @WebServlet(name = "frontControllerServletV1", urlPatterns = "/front-controller/v1/*")
 public class FrontControllerServletV1 extends HttpServlet {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private Map<String, ControllerV1> controllerMap = new HashMap<>();
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Map<String, ControllerV1> controllerMap = new HashMap<>();
 
     public FrontControllerServletV1() {
         this.controllerMap.put("/front-controller/v1/members/new-form", new MemberFormControllerV1());
@@ -38,11 +37,11 @@ public class FrontControllerServletV1 extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         logger.info("FrontControllerServletV1.service");
 
-        String requestURI = request.getRequestURI();
-        ControllerV1 controller = controllerMap.get(requestURI);
+        final String requestURI = request.getRequestURI();
+        final ControllerV1 controller = controllerMap.get(requestURI);
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;

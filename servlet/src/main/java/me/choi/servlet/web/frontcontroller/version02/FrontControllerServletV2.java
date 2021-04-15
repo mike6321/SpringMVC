@@ -24,7 +24,7 @@ import java.util.Map;
  * Project : servlet
  *
  * @author : jwdeveloper
- * @comment :
+ * @comment : 현재의 문제점 : HttpServletRequest, HttpServletResponse등의 사용하지 않는 코드가 너무 많다.
  * Time : 9:13 오후
  */
 @WebServlet(name = "frontControllerServletV2", urlPatterns = "/front-controller/v2/*")

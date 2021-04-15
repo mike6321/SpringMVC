@@ -1,10 +1,14 @@
-package me.choi.servlet.web.frontcontroller.version03;
+package me.choi.servlet.web.frontcontroller.version04;
 
 import me.choi.servlet.web.frontcontroller.ModelView;
 import me.choi.servlet.web.frontcontroller.MyView;
+import me.choi.servlet.web.frontcontroller.version03.ControllerV3;
 import me.choi.servlet.web.frontcontroller.version03.controller.MemberFormControllerV3;
 import me.choi.servlet.web.frontcontroller.version03.controller.MemberListControllerV3;
 import me.choi.servlet.web.frontcontroller.version03.controller.MemberSaveControllerV3;
+import me.choi.servlet.web.frontcontroller.version04.controller.MemberFormControllerV4;
+import me.choi.servlet.web.frontcontroller.version04.controller.MemberListControllerV4;
+import me.choi.servlet.web.frontcontroller.version04.controller.MemberSaveControllerV4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,23 +28,23 @@ import java.util.Map;
  * @comment :
  * Time : 9:13 오후
  */
-@WebServlet(name = "frontControllerServletV3", urlPatterns = "/front-controller/v3/*")
-public class FrontControllerServletV3 extends HttpServlet {
+@WebServlet(name = "frontControllerServletV4", urlPatterns = "/front-controller/v4/*")
+public class FrontControllerServletV4 extends HttpServlet {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final Map<String, ControllerV3> controllerMap = new HashMap<>();
+    private final Map<String, ControllerV4> controllerMap = new HashMap<>();
 
-    public FrontControllerServletV3() {
-        this.controllerMap.put("/front-controller/v3/members/new-form", new MemberFormControllerV3());
-        this.controllerMap.put("/front-controller/v3/members/save", new MemberSaveControllerV3());
-        this.controllerMap.put("/front-controller/v3/members", new MemberListControllerV3());
+    public FrontControllerServletV4() {
+        this.controllerMap.put("/front-controller/v4/members/new-form", new MemberFormControllerV4());
+        this.controllerMap.put("/front-controller/v4/members/save", new MemberSaveControllerV4());
+        this.controllerMap.put("/front-controller/v4/members", new MemberListControllerV4());
     }
 
     @Override
     protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
         final String requestURI = request.getRequestURI();
-        final ControllerV3 controller = controllerMap.get(requestURI);
+        final ControllerV4 controller = controllerMap.get(requestURI);
 
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -48,11 +52,12 @@ public class FrontControllerServletV3 extends HttpServlet {
         }
 
         final Map<String, String> paramMap = createParamMap(request);
-        final ModelView mv = controller.process(paramMap);
+        final Map<String, Object> model = new HashMap<>();
+        final String viewName = controller.process(paramMap, model);
 
-        final String viewName = mv.getViewName();// 논리이름
         final MyView view = viewResolver(viewName);
-        view.render(mv.getModel(), request, response);
+
+        view.render(model, request, response);
     }
 
     private MyView viewResolver(final String viewName) {

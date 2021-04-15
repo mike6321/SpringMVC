@@ -11,10 +11,10 @@ import java.util.Map;
  * Time : 11:00 오후
  */
 public class ModelView {
-    private String viewName;
-    private Map<String, Object> model = new HashMap<>();
+    private final String viewName;
+    private final Map<String, Object> model = new HashMap<>();
 
-    public ModelView(String viewName) {
+    public ModelView(final String viewName) {
         this.viewName = viewName;
     }
 

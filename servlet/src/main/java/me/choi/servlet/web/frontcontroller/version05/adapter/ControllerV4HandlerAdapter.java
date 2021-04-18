@@ -1,7 +1,7 @@
 package me.choi.servlet.web.frontcontroller.version05.adapter;
 
 import me.choi.servlet.web.frontcontroller.ModelView;
-import me.choi.servlet.web.frontcontroller.version03.ControllerV3;
+import me.choi.servlet.web.frontcontroller.version04.ControllerV4;
 import me.choi.servlet.web.frontcontroller.version05.MyHandlerAdapter;
 
 import javax.servlet.ServletException;
@@ -16,21 +16,25 @@ import java.util.Map;
  *
  * @author : jwdeveloper
  * @comment :
- * Time : 5:55 오후
+ * Time : 6:44 오후
  */
-public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
+public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
     @Override
     public boolean supports(final Object handler) {
-        return (handler instanceof ControllerV3);
+        return (handler instanceof ControllerV4);
     }
 
     @Override
     public ModelView handle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws ServletException, IOException {
-        final ControllerV3 controller = (ControllerV3) handler;
+        final ControllerV4 controller = (ControllerV4) handler;
         final Map<String, String> paramMap = createParamMap(request);
+        final Map<String, Object> model = new HashMap<>();
 
-        ModelView mv = controller.process(paramMap);
+        final String viewName = controller.process(paramMap, model);
+
+        final ModelView mv = new ModelView(viewName);
+        mv.setModel(model);
 
         return mv;
     }
@@ -42,5 +46,4 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
         return paramMap;
     }
-
 }
